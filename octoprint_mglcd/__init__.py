@@ -1165,9 +1165,10 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				try:
 					displayString = self.currentPage + '.tool0Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
 					displayGeneralString = 'tool0.tool0Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
-
+					displayWave0 = 'home.temp0.val={}'.format(str(int(tempData['tool0']['actual'])))
 					self.nextionDisplay.nxWrite(displayString)
 					self.nextionDisplay.nxWrite(displayGeneralString)
+					self.nextionDisplay.nxWrite(displayWave0)
 				except:
 					self._logger.info('no tool0?')
 					tool0DisplayString = self.currentPage + '.tool0Display.txt="No Data"'
@@ -1183,9 +1184,10 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					# tool1DisplayString = 'home.tool1Display.txt="{} / {} \xB0C"'.format(str(int(data['tool1']['actual'])),str(int(data['tool1']['target'])))
 					tool1DisplayString = self.currentPage + '.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
 					tool1DisplayGeneralString = 'tool1.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
-
+					displayWave1 = 'home.temp1.val={}'.format(str(int(tempData['tool1']['actual'])))
 					self.nextionDisplay.nxWrite(tool1DisplayString)
 					self.nextionDisplay.nxWrite(tool1DisplayGeneralString)
+					self.nextionDisplay.nxWrite(displayWave1)
 				except:
 					self._logger.info('no tool1?')
 					tool1DisplayString = self.currentPage + '.tool1Display.txt="No Tool1"'
