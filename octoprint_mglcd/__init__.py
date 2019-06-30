@@ -1331,7 +1331,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 		# self._logger.info(line)
 		# self._logger.info("previousFolderList:")
 		# self._logger.info(self.previousFolderList)
-		if "MAKERGEAR" in str(line):
+		if "NEXTION" in str(line):
 			self._logger.info("Handshake received.")
 			self.handshakeReceived()
 
