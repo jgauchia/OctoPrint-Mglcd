@@ -489,7 +489,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			ports = ['COM%s' % (i + 1) for i in range(256)]
 		elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
 			# this excludes your current terminal "/dev/tty"
-			ports = glob.glob('/dev/ttyUSB*')
+			ports = glob.glob('/dev/ttyAMA*')
 		elif sys.platform.startswith('darwin'):
 			ports = glob.glob('/dev/ttyUSB.*')
 		else:
@@ -602,7 +602,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 	def flashFirmware(self):
 		if self.connectedPort == '':
-			targetPort = "/dev/ttyUSB0"
+			targetPort = "/dev/ttyAMA0"
 		else:
 			targetPort = self.connectedPort
 		self.displayConnected = False
