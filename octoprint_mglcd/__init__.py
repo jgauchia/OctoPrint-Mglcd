@@ -1163,8 +1163,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 			if self.currentPage == 'home' or self.currentPage == 'temperature' or self.currentPage == 'extruder':
 				try:
-					displayString = self.currentPage + '.tool0Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
-					displayGeneralString = 'tool0.tool0Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
+					displayString = self.currentPage + '.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
+					displayGeneralString = 'tool0.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
 					displayWave0 = 'home.temp0.val={}'.format(str(int(tempData['tool0']['actual'])))
 					self.nextionDisplay.nxWrite(displayString)
 					self.nextionDisplay.nxWrite(displayGeneralString)
