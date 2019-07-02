@@ -1134,8 +1134,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				try:
 					#displayString = self.currentPage + '.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
 
-					t0Temp = self.currentPage + '.t0Temp.txt="{}"'.format(str(int(tempData['tool0']['actual'])))
-					t0Target = self.currentPage + '.t0Target.txt="/{}\xB0C"'.format(str(int(tempData['tool0']['target'])))
+					t0Temp = self.currentPage + '.t0Temp.val="{}"'.format(str(int(tempData['tool0']['actual'])))
+					t0Target = self.currentPage + '.t0Target.val="{}"'.format(str(int(tempData['tool0']['target'])))
 					#displayGeneralString = 'tool0.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
 					displayWave0 = 'home.temp0.val={}'.format(str(int(tempData['tool0']['actual'])))
 					self.nextionDisplay.nxWrite(t0Temp)
@@ -1153,8 +1153,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				try:
 					#tool1DisplayString = self.currentPage + '.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
 					
-					t1Temp = self.currentPage + '.t1Temp.txt="{}"'.format(str(int(tempData['tool1']['actual'])))
-					t1Target = self.currentPage + '.t1Target.txt="/{}\xB0C"'.format(str(int(tempData['tool1']['target'])))
+					t1Temp = self.currentPage + '.t1Temp.val="{}"'.format(str(int(tempData['tool1']['actual'])))
+					t1Target = self.currentPage + '.t1Target.val="{}"'.format(str(int(tempData['tool1']['target'])))
 					#tool1DisplayGeneralString = 'tool1.tool1Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
 					displayWave1 = 'home.temp1.val={}'.format(str(int(tempData['tool1']['actual'])))
 					self.nextionDisplay.nxWrite(t1Temp)
