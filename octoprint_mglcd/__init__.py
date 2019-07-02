@@ -1132,10 +1132,15 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			if self.currentPage == 'home' or self.currentPage == 'temperature' or self.currentPage == 'extruder':
 				# Extruder 1
 				try:
-					displayString = self.currentPage + '.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
+					#displayString = self.currentPage + '.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
+
+					t0Temp = self.currentPage + '.t0Temp.txt="{}"'.format(str(int(tempData['tool0']['actual'])))
+					t0Target = self.currentPage + '.t0Temp.txt="{}\xB0C"'.format(str(int(tempData['tool0']['target'])))
 					#displayGeneralString = 'tool0.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
 					displayWave0 = 'home.temp0.val={}'.format(str(int(tempData['tool0']['actual'])))
-					self.nextionDisplay.nxWrite(displayString)
+					self.nextionDisplay.nxWrite(t0Temp)
+					self.nextionDisplay.nxWrite(t0Target)
+					
 					#self.nextionDisplay.nxWrite(displayGeneralString)
 					self.nextionDisplay.nxWrite(displayWave0)
 				except:
@@ -1146,11 +1151,15 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					#self.nextionDisplay.nxWrite(tool0GeneralDisplayString)
 				# Extruder 2
 				try:
-					# tool1DisplayString = 'home.tool1Display.txt="{} / {} \xB0C"'.format(str(int(data['tool1']['actual'])),str(int(data['tool1']['target'])))
-					tool1DisplayString = self.currentPage + '.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
-					#tool1DisplayGeneralString = 'tool1.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
+					#tool1DisplayString = self.currentPage + '.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
+					
+					t1Temp = self.currentPage + '.t1Temp.txt="{}"'.format(str(int(tempData['tool1']['actual'])))
+					t1Target = self.currentPage + '.t0Temp.txt="{}\xB0C"'.format(str(int(tempData['tool1']['target'])))
+					#tool1DisplayGeneralString = 'tool1.tool1Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
 					displayWave1 = 'home.temp1.val={}'.format(str(int(tempData['tool1']['actual'])))
-					self.nextionDisplay.nxWrite(tool1DisplayString)
+					self.nextionDisplay.nxWrite(t1Temp)
+					self.nextionDisplay.nxWrite(t1Target)
+					
 					#self.nextionDisplay.nxWrite(tool1DisplayGeneralString)
 					self.nextionDisplay.nxWrite(displayWave1)
 				except:
@@ -1159,12 +1168,6 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					#tool1GeneralDisplayString = 'tool1.tool1Display.txt="No Tool1"'
 					self.nextionDisplay.nxWrite(tool1DisplayString)
 					#self.nextionDisplay.nxWrite(tool1GeneralDisplayString)
-
-
-
-
-
-
 
 
 			if self.currentPage == 'printcontrols':
