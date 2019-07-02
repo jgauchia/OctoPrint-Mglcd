@@ -1121,38 +1121,6 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			)
 		)
 
-	# def on_printer_add_temperature(self, data):
-	# 	if self.displayConnected:
-	# 		# self._logger.info(data)
-	# 		# self._logger.info(data['tool0']['actual'])
-	# 		# displayString = str('Tool0.tempDisplay.txt='+str(data['tool0']['actual'])+' / '+str(data['tool0']['target'])+' C\xB0')
-	# 		displayString = 'home.tool0Display.txt="{} / {} \xB0C"'.format(str(int(data['tool0']['actual'])),str(int(data['tool0']['target'])))
-	# 		bedDisplayString = 'home.bedDisplay.txt="{} / {} \xB0C"'.format(str(int(data['bed']['actual'])),str(int(data['bed']['target'])))
-	# 		try:
-	# 			tool1DisplayString = 'home.tool1Display.txt="{} / {} \xB0C"'.format(str(int(data['tool1']['actual'])),str(int(data['tool1']['target'])))
-	# 			self.nextionDisplay.nxWrite(tool1DisplayString)
-	# 		except:
-	# 			self._logger.info('no tool1?')
-	# 			tool1DisplayString = 'home.tool1Display.txt="No Tool1"'
-	# 			self.nextionDisplay.nxWrite(tool1DisplayString)
-	# 		# self.nextionDisplay.nxWrite('Tool0.tempDisplay.txt='+str(data['tool0']['actual'])+' / '+str(data['tool0']['target'])+' C\xB0')
-	# 		# self._logger.info(displayString)
-	# 		self.nextionDisplay.nxWrite(displayString)
-	# 		self.nextionDisplay.nxWrite(bedDisplayString)
-	# 		if float(data['tool0']['target'])>0:
-	# 			displayGraphValue = str(int(round(100*(float(data['tool0']['actual'])/float(data['tool0']['target'])))))
-	# 		else:
-	# 			displayGraphValue = str(100)
-	# 		# displayGraphString = 'Tool0.tempGraph.val={}'.format(displayGraphValue)
-	# 		# self.nextionDisplay.nxWrite(displayGraphString)
-	# 		if float(data['bed']['target'])>0:
-	# 			bedDisplayGraphValue = str(int(round(100*(float(data['bed']['actual'])/float(data['bed']['target'])))))
-	# 		else:
-	# 			bedDisplayGraphValue = str(100)
-	# 		# bedDisplayGraphString = 'Bed.tempGraph.val={}'.format(bedDisplayGraphValue)
-	# 		# self.nextionDisplay.nxWrite(bedDisplayGraphString)
-	# 		# self._logger.info(displayGraphString)
-
 	def on_printer_send_current_data(self,data):
 		if self.displayConnected:
 			# self._logger.info(data)
@@ -1162,39 +1130,35 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 
 			if self.currentPage == 'home' or self.currentPage == 'temperature' or self.currentPage == 'extruder':
+				# Extruder 1
 				try:
 					displayString = self.currentPage + '.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
-					displayGeneralString = 'tool0.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
+					#displayGeneralString = 'tool0.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
 					displayWave0 = 'home.temp0.val={}'.format(str(int(tempData['tool0']['actual'])))
 					self.nextionDisplay.nxWrite(displayString)
-					self.nextionDisplay.nxWrite(displayGeneralString)
+					#self.nextionDisplay.nxWrite(displayGeneralString)
 					self.nextionDisplay.nxWrite(displayWave0)
 				except:
 					self._logger.info('no tool0?')
 					tool0DisplayString = self.currentPage + '.tool0Display.txt="No Data"'
-					tool0GeneralDisplayString = 'tool0.tool0Display.txt="No Data"'
+					#tool0GeneralDisplayString = 'tool0.tool0Display.txt="No Data"'
 					self.nextionDisplay.nxWrite(tool0DisplayString)
-					self.nextionDisplay.nxWrite(tool0GeneralDisplayString)
-
-
-
-				# displayString = 'home.tool0Display.txt="{} / {} \xB0C"'.format(str(int(data['tool0']['actual'])),str(int(data['tool0']['target'])))
-				# bedDisplayString = 'home.bedDisplay.txt="{} / {} \xB0C"'.format(str(int(data['bed']['actual'])),str(int(data['bed']['target'])))
+					#self.nextionDisplay.nxWrite(tool0GeneralDisplayString)
+				# Extruder 2
 				try:
 					# tool1DisplayString = 'home.tool1Display.txt="{} / {} \xB0C"'.format(str(int(data['tool1']['actual'])),str(int(data['tool1']['target'])))
 					tool1DisplayString = self.currentPage + '.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
-					tool1DisplayGeneralString = 'tool1.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
+					#tool1DisplayGeneralString = 'tool1.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
 					displayWave1 = 'home.temp1.val={}'.format(str(int(tempData['tool1']['actual'])))
 					self.nextionDisplay.nxWrite(tool1DisplayString)
-					self.nextionDisplay.nxWrite(tool1DisplayGeneralString)
+					#self.nextionDisplay.nxWrite(tool1DisplayGeneralString)
 					self.nextionDisplay.nxWrite(displayWave1)
 				except:
 					self._logger.info('no tool1?')
 					tool1DisplayString = self.currentPage + '.tool1Display.txt="No Tool1"'
-					tool1GeneralDisplayString = 'tool1.tool1Display.txt="No Tool1"'
-
+					#tool1GeneralDisplayString = 'tool1.tool1Display.txt="No Tool1"'
 					self.nextionDisplay.nxWrite(tool1DisplayString)
-					self.nextionDisplay.nxWrite(tool1GeneralDisplayString)
+					#self.nextionDisplay.nxWrite(tool1GeneralDisplayString)
 
 
 
