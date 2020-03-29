@@ -1268,6 +1268,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				self.nextionDisplay.nxWrite(filePrintingString)
 				self.nextionDisplay.nxWrite(fileProgressString)
 				self.nextionDisplay.nxWrite(fileTimeLeftString)
+				self.nextionDisplay.nxWrite(fileTimeString)
 				self.nextionDisplay.nxWrite(fileProgressPercentString)
 				self.nextionDisplay.nxWrite(stateString)
 
