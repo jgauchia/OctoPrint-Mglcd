@@ -804,7 +804,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 	def handshakeReceived(self):
 
 		self.nextionDisplay.nxWrite('page home')
-		self.nextionDisplay.nxWrite('home.bedDisplay.txt="No Data"')
+		# self.nextionDisplay.nxWrite('home.bedDisplay.txt="No Data"')
 		self.nextionDisplay.nxWrite('home.tool0Display.txt="No Data"')
 		self.nextionDisplay.nxWrite('home.tool1Display.txt="No Data"')
 		# self.getMessage()
@@ -1212,9 +1212,9 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 
 			if self.currentPage == 'home' or self.currentPage == 'temperature':
-				bedDisplayString = self.currentPage + '.bedDisplay.txt="{} / {} \xB0C"'.format(str(int(tempData['bed']['actual'])),str(int(tempData['bed']['target'])))
+				# bedDisplayString = self.currentPage + '.bedDisplay.txt="{} / {} \xB0C"'.format(str(int(tempData['bed']['actual'])),str(int(tempData['bed']['target'])))
 
-				self.nextionDisplay.nxWrite(bedDisplayString)
+				# self.nextionDisplay.nxWrite(bedDisplayString)
 
 
 			if self.currentPage == 'home':
