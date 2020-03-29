@@ -1253,10 +1253,9 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				try:
 					printTime = int(data['progress']['printTime'])
 					if printTime > 59:	
-						#printTimeString = '{:02d}'.format(int(math.floor(printTime/3600)))+":"+'{:02d}'.format(int(math.floor(printTime/60)))+":"+'{:02d}'.format(int(math.fmod(printTime,60)))
-						printTimeString = '"{:02}:{:02}:{:02}"'.format(int(math.floor(printTime/3600)),int(math.floor(printTime/60)),int(math.fmod(printTime,60)))
+						printTimeString = str(int(math.floor(printTime/3600))).zfill(2)+":"+str(int(math.floor(printTime/60))).zfill(2)+":"+str(int(math.fmod(printTime,60))).zfill(2)
 					else:
-				                printTimeString = '"00:00:{:02}"'.format(printTime)
+				                printTimeString = "00:00:"+str(printTime).zfill(2)
 				           					
 					fileTimeString = self.currentPage + '.fileTime.txt="{}"'.format(printTimeString)
 
