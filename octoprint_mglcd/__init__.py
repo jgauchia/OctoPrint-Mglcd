@@ -1241,12 +1241,24 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				try:
 					tempTime = int(data['progress']['printTimeLeft']/60)
 					if tempTime > 60:
-						tempTimeString = str(int(math.floor(tempTime/60)))+" hrs " + str(int(math.fmod(tempTime,60))) + " min"
+						tempTimeString = str(int(math.floor(tempTime/60)))+" h. " + str(int(math.fmod(tempTime,60))) + " min"
 					else:
 						tempTimeString = str(tempTime) + " min"
-					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: {}"'.format(tempTimeString)
+										
+					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: {}"'.format(tempTimeString)	
+						
+					printTime = int(data['progress']['printTime']/60)
+					if printTime > 60;	
+						printTimeString = str(int(math.floor(printTime/60)))+" h. " + str(int(math.fmod(printTime,60))) + " min"
+					else:
+						printTimeString = str(printTime) + " min"
+					
+					fileTimeString = self.currentPage + '.fileTime.txt="{}"'.format(printTimeString)
+
 				except:
 					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: 0 min"'
+					
+					fileTimeString = self.currentPage + '.fileTime.txt=""'
 
 				try:
 					stateString = self.currentPage + '.status.txt="{}"'.format(data['state']['text'])
