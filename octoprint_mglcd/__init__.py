@@ -1248,7 +1248,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: {}"'.format(tempTimeString)	
 						
 					printTime = int(data['progress']['printTime']/60)
-					if printTime > 60;	
+					if printTime > 60:	
 						printTimeString = str(int(math.floor(printTime/60)))+" h. " + str(int(math.fmod(printTime,60))) + " min"
 					else:
 						printTimeString = str(printTime) + " min"
