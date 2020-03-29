@@ -1211,7 +1211,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 
 
-			if self.currentPage == 'home' or self.currentPage == 'temperature':
+			#if self.currentPage == 'home' or self.currentPage == 'temperature':
 				# bedDisplayString = self.currentPage + '.bedDisplay.txt="{} / {} \xB0C"'.format(str(int(tempData['bed']['actual'])),str(int(tempData['bed']['target'])))
 
 				# self.nextionDisplay.nxWrite(bedDisplayString)
