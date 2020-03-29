@@ -1248,7 +1248,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: {}"'.format(tempTimeString)	
 	
 				except:
-					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: 0 min"'
+					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: ----"'
 				
 				try:
 					printTime = int(data['progress']['printTime'])
