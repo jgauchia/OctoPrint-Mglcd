@@ -767,8 +767,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 						self._logger.info("Got serial, trying to initialize Nextion.")
 
 						self.nextionDisplay = Nextion(self.nextionSerial)
-						# self.nextionDisplay.nxWrite('bauds=115200')
-						# self.nextionDisplay.nxWrite('Tool0.tempDisplay.txt="No Data Yet"')
+						 self.nextionDisplay.nxWrite('bauds=115200')
+						 self.nextionDisplay.nxWrite('Tool0.tempDisplay.txt="No Data Yet"')
 						self.nextionDisplay.nxWrite('get home.handshake.txt')
 						self.connectionFails += 1
 						self.displayConnected = True
