@@ -823,7 +823,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 		# 	ip = "No IP"
 		# self.nextionDisplay.nxWrite('home.ip.txt="{}"'.format(ip))
 		self.populateIpAddress()
-		self.nextionDisplay.nxWrite('home.status.txt="Status: LCD Connected"')
+		self.nextionDisplay.nxWrite('home.status.txt="LCD Conectado"')
 		self._logger.info("LCD Firmware version:")
 		self.nextionDisplay.nxWrite('get info.version.txt')
 		# self.nextionDisplay.nxWrite('Status.t0.txt="LCD Connected"')
@@ -1249,9 +1249,9 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					fileTimeLeftString = self.currentPage + '.fileTimeLeft.txt="Est.: 0 min"'
 
 				try:
-					stateString = self.currentPage + '.status.txt="Status: {}"'.format(data['state']['text'])
+					stateString = self.currentPage + '.status.txt="{}"'.format(data['state']['text'])
 				except:
-					stateString = self.currentPage + '.status.txt="Status: Connected"'
+					stateString = self.currentPage + '.status.txt="Conectado"'
 
 				self.nextionDisplay.nxWrite(filePrintingString)
 				self.nextionDisplay.nxWrite(fileProgressString)
