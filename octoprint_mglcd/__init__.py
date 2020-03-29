@@ -489,7 +489,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			ports = ['COM%s' % (i + 1) for i in range(256)]
 		elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
 			# this excludes your current terminal "/dev/tty"
-			ports = glob.glob('/dev/tty*')
+			# JGJ
+			ports = glob.glob('/dev/ttyUSB*')
 		elif sys.platform.startswith('darwin'):
 			ports = glob.glob('/dev/ttyUSB.*')
 		else:
@@ -602,7 +603,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 	def flashFirmware(self):
 		if self.connectedPort == '':
-			targetPort = "/dev/ttyS0"
+			targetPort = "/dev/ttyUSB0"
 		else:
 			targetPort = self.connectedPort
 		self.displayConnected = False
@@ -767,8 +768,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 						self._logger.info("Got serial, trying to initialize Nextion.")
 
 						self.nextionDisplay = Nextion(self.nextionSerial)
-						 self.nextionDisplay.nxWrite('bauds=115200')
-						 self.nextionDisplay.nxWrite('Tool0.tempDisplay.txt="No Data Yet"')
+						# self.nextionDisplay.nxWrite('bauds=115200')
+						# self.nextionDisplay.nxWrite('Tool0.tempDisplay.txt="No Data Yet"')
 						self.nextionDisplay.nxWrite('get home.handshake.txt')
 						self.connectionFails += 1
 						self.displayConnected = True
