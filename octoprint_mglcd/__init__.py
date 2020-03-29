@@ -805,8 +805,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 		self.nextionDisplay.nxWrite('page home')
 		# self.nextionDisplay.nxWrite('home.bedDisplay.txt="No Data"')
-		self.nextionDisplay.nxWrite('home.tool0Display.txt="No Data"')
-		self.nextionDisplay.nxWrite('home.tool1Display.txt="No Data"')
+		self.nextionDisplay.nxWrite('home.tool0Display.txt="--- / ---"')
+		self.nextionDisplay.nxWrite('home.tool1Display.txt="--- / ---"')
 		# self.getMessage()
 		self.nextionSerial.flushInput()
 		self.nextionSerial.flushOutput()
