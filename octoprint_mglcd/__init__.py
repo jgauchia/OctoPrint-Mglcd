@@ -489,7 +489,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			ports = ['COM%s' % (i + 1) for i in range(256)]
 		elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
 			# this excludes your current terminal "/dev/tty"
-			ports = glob.glob('/dev/ttyS*')
+			ports = glob.glob('/dev/tty*')
 		elif sys.platform.startswith('darwin'):
 			ports = glob.glob('/dev/ttyUSB.*')
 		else:
