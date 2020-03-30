@@ -26,7 +26,7 @@ from flask import jsonify, make_response
 import logging
 from octoprint.server import admin_permission
 
-
+from flask.ext.babel import gettext
 
 
 ### (Don't forget to remove me)
