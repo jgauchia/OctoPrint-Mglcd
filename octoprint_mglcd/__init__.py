@@ -1845,7 +1845,6 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 		finally:
 			sock.close()
 			
-
 	 def process_gcode(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
         	if gcode and gcode.startswith('M106'):
             		s = re.search("S(.+)", cmd)
@@ -1859,7 +1858,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
             				self.speed = gettext('Off')
         		stateString = self.currentPage + '.status.txt="{}"'.format(self.speed)
 			self.nextionDisplay.nxWrite(stateString)
-        		return None
+        		return None			
 
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
@@ -1872,6 +1871,6 @@ def __plugin_load__():
 
 	global __plugin_hooks__
 	__plugin_hooks__ = {
-		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
-		"octoprint.comm.protocol.gcode.sent": __plugin_implementation__.process_gcode
+		"octoprint.comm.protocol.gcode.sent": __plugin_implementation__.process_gcode,
+		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
 	}
