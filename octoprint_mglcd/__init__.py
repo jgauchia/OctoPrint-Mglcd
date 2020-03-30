@@ -1846,21 +1846,20 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			sock.close()
 			
 
-	def process_gcode_received(self, comm, line, *args, **kwargs):
-      	  if "Fanspeed" not in line:
-	            return line
-
-        	fan_response = re.search("(\d*\.?\d+?)", line)
-        	if fan_response and fan_response.group(1):
-            	fan_response = fan_response.group(1)
-            	if float(fan_response) == 0:
-	                self.speed = gettext('Off')
-	            else:
-	                self.speed = str(int(float(fan_response)*100.0/255.0))+"%"
-	       	stateString = self.currentPage + '.status.txt="{}"'.format(self.speed)
-		self.nextionDisplay.nxWrite(stateString)
-        	return line
-	
+	 def process_gcode(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
+        	if gcode and gcode.startswith('M106'):
+            		s = re.search("S(.+)", cmd)
+            		if s and s.group(1):
+                		s = s.group(1)
+                		if float(s) == 0:
+                    			self.speed = gettext('Off')
+                		else:
+	    				self.speed = str(int(float(s)*100.0/255.0))+"%"
+                        if gcode and gcode.startswith('M107'):
+            				self.speed = gettext('Off')
+        		stateString = self.currentPage + '.status.txt="{}"'.format(self.speed)
+			self.nextionDisplay.nxWrite(stateString)
+        		return None
 
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
@@ -1874,5 +1873,5 @@ def __plugin_load__():
 	global __plugin_hooks__
 	__plugin_hooks__ = {
 		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
-		"octoprint.comm.protocol.gcode.received": __plugin_implementation__.process_gcode_received
+		"octoprint.comm.protocol.gcode.sent": __plugin_implementation__.process_gcode
 	}
