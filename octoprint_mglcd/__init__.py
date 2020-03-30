@@ -46,6 +46,7 @@ class Component(object):
 		self.page=page
 		self.id=id
 		self.name=name
+		self.speed = "N/A"
 
 	@staticmethod
 	def newComponentByDefinition(page, componentDefinition):
@@ -1843,6 +1844,27 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 		finally:
 			sock.close()
+			
+			
+			
+    def process_gcode(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
+        if gcode and gcode.startswith('M106'):
+            s = re.search("S(.+)", cmd)
+            if s and s.group(1):
+                s = s.group(1)
+                if float(s) == 0:
+                    self.speed = gettext('Off')
+                else:
+                    self.speed = str(int(float(s)*100.0/255.0))+"%"
+		stateString = self.currentPage + '.status.txt="{}"'.format(str(int(float(s)*100.0/255.0))+"%")
+            if gcode and gcode.startswith('M107'):
+            self.speed = gettext('Off')
+	
+	self.nextionDisplay.nxWrite(stateString)
+            return None
+	
+	
+	
 
 # If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
 # ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
