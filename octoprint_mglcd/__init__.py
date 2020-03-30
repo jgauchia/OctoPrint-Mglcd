@@ -26,9 +26,6 @@ from flask import jsonify, make_response
 import logging
 from octoprint.server import admin_permission
 
-from flask.ext.babel import gettext
-
-
 ### (Don't forget to remove me)
 # This is a basic skeleton for your plugin's __init__.py. You probably want to adjust the class name of your plugin
 # as well as the plugin mixins it's subclassing from. This is really just a basic skeleton to get you started,
@@ -1084,23 +1081,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 
 		elif command == "stop_ap":
 			self._stop_ap()
-			
-			
-	 def process_gcode(self, comm_instance, phase, cmd, cmd_type, gcode, *args, **kwargs):
-        	if gcode and gcode.startswith('M106'):
-            		s = re.search("S(.+)", cmd)
-            		if s and s.group(1):
-                		s = s.group(1)
-                		if float(s) == 0:
-                    			self.speed = gettext('Off')
-                		else:
-	    				self.speed = str(int(float(s)*100.0/255.0))+"%"
-                        if gcode and gcode.startswith('M107'):
-            				self.speed = gettext('Off')
-        		stateString = self.currentPage + '.status.txt="{}"'.format(self.speed)
-			self.nextionDisplay.nxWrite(stateString)
-        		return None			
-			
+				
 	##~~ AssetPlugin mixin
 
 	def get_assets(self):
@@ -1873,6 +1854,5 @@ def __plugin_load__():
 
 	global __plugin_hooks__
 	__plugin_hooks__ = {
-		"octoprint.comm.protocol.gcode.sent": __plugin_implementation__.process_gcode,
 		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
 	}
