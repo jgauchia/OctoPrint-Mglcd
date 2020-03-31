@@ -1178,6 +1178,24 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					self.nextionDisplay.nxWrite(tool1DisplayString)
 					#self.nextionDisplay.nxWrite(tool1GeneralDisplayString)
 
+					
+			if self.currentPage == 'temperature':
+				# Extruder 1
+				try:
+					tool0Display = self.currentPage + '.tool0Display.txt="{}\xB0C"'.format(str(int(tempData['tool0']['actual'])))
+					self.nextionDisplay.nxWrite(tool0Display)
+				except:
+					tool0Display = self.currentPage + '.tool0Display.txt="---"'
+					self.nextionDisplay.nxWrite(tool0Display)
+				# Extruder 2
+				try:
+					tool1Display = self.currentPage + '.tool1Display.txt="{}\xB0C"'.format(str(int(tempData['tool1']['actual'])))
+					self.nextionDisplay.nxWrite(tool1Display)
+				except:
+					tool1Display = self.currentPage + '.tool1Display.txt="---"'
+					self.nextionDisplay.nxWrite(tool1Display)		
+					
+					
 
 			if self.currentPage == 'printcontrols':
 				if (data['job']['file']['name']) == None:
