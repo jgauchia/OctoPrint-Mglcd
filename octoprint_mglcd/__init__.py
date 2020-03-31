@@ -1133,7 +1133,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			# self.nextionDisplay.nxWrite('get dp')
 
 
-			if self.currentPage == 'home' or self.currentPage == 'temperature' or self.currentPage == 'extruder':
+			#if self.currentPage == 'home' or self.currentPage == 'temperature' or self.currentPage == 'extruder':
+			if self.currentPage == 'home' or self.currentPage == 'extruder':
 				# Extruder 1
 				try:
 					#displayString = self.currentPage + '.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
