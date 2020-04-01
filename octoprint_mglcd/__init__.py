@@ -974,9 +974,9 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 		# 	lastPos = 5
 		# else:
 		# 	lastPos = len(self.fileList-self.fileListLocation)
-		for clearPos in range (0,4):
+		for clearPos in range (0,6):
 			self.nextionDisplay.nxWrite('files.file{}.txt="{}"'.format(clearPos,('')))
-		lastPos = 4
+		lastPos = 6
 		for fileCount in range(0,lastPos):
 			try:
 				# self._logger.info(fileName)
