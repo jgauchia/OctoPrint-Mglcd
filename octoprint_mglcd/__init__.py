@@ -728,21 +728,6 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 		# self._logger.info(self._file_manager.list_files(path='nextion'))
 		self._printer.register_callback(self)
 		self.displayConnectionTimer.start()
-		
-		# self.populatePrintList()
-
-		# self.connect_to_display()
-		# self._logger.info(octoprint.filemanager.storage.list_files(FileDestinations.LOCAL))
-		# netconnectdModule = self._plugin_manager.get_plugin("netconnectd")
-		# self._logger.info(netconnectd)
-		# netconnectd = NetconnectdSettingsPlugin.__init__()
-		# import netconnectd
-		# setattr(netconnectd, "_logger", self._logger)
-		# setattr(netconnectd, "_settings", self._settings)
-
-		# self._logger.info(netconnectd.get_api_commands())
-		# self._logger.info(netconnectd.on_api_command("refresh_wifi",""))
-		# self._logger.info(self._send_message("list_wifi",{}))
 
 	def connect_to_display(self):
 		if self.tryToConnect:
@@ -752,22 +737,14 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				ports = self.serial_ports()
 				self._logger.info("Ports found: ")
 				self._logger.info(ports)
-				# self.displayConnected = False
-				# self.displayConnectionTimer.cancel()
 				for port in ports:
 					try:
 						self._logger.info("Trying to get serial port.")
-
 						self.nextionSerial = serial.Serial(port,115200,timeout=0.1)
 						self.nextionSerial.flushInput()
 						self.nextionSerial.flushOutput()
-						# self.nextionSerial.write('bauds=115200'+chr(255)+chr(255)+chr(255))
-
 						self._logger.info("Got serial, trying to initialize Nextion.")
-
 						self.nextionDisplay = Nextion(self.nextionSerial)
-						# self.nextionDisplay.nxWrite('bauds=115200')
-						# self.nextionDisplay.nxWrite('Tool0.tempDisplay.txt="No Data Yet"')
 						self.nextionDisplay.nxWrite('get home.handshake.txt')
 						self.connectionFails += 1
 						self.displayConnected = True
@@ -776,14 +753,9 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 							self.serialParseTimer.start()
 						except RuntimeError as e:
 							self._logger.info("Exception!  Probably not happy about starting threads again?  Actual error: "+str(e))
-
-
-
-
 					# except RuntimeError as e:
 					except OSError as e:
 						self._logger.info("OSError Exception!  Could not connect for some reason.")
-						# self._logger.info("Error: "+str(e))
 						self._logger.info("Error:"+str(e))
 						self.displayConnected = False
 						self.connectionFails += 1
@@ -809,39 +781,26 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 		#self.nextionDisplay.nxWrite('home.tool1Display.txt="--- / ---"')
 		self.nextionDisplay.nxWrite('home.t1Temp.txt="---"')
 		self.nextionDisplay.nxWrite('home.t1Target.txt="---"')
-		# self.getMessage()
 		self.nextionSerial.flushInput()
 		self.nextionSerial.flushOutput()
 		self.nextionDisplay.nxWrite('home.hostname.txt="{}"'.format(socket.gethostname()))
 		self.nextionDisplay.nxWrite('home.name.txt="{}"'.format(str(octoprint.settings.Settings.get(octoprint.settings.settings(),["appearance", "name"])).strip('[\']')))
-		# try:
-		# 	ip = str(([l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]))
-		# except socket.error as e:
-		# 	self._logger.info("Socket exception: "+str(e))
-		# 	ip = "No IP"
-		# self.nextionDisplay.nxWrite('home.ip.txt="{}"'.format(ip))
 		self.populateIpAddress()
 		self.nextionDisplay.nxWrite('home.status.txt="LCD Conectado"')
 		self._logger.info("LCD Firmware version:")
 		self.nextionDisplay.nxWrite('get info.version.txt')
-		# self.nextionDisplay.nxWrite('Status.t0.txt="LCD Connected"')
 
 		self.displayConnected = True
 		self.currentPage = 'home'
-		# self.displayConnectionTimer.cancel()
 
 		self.connectionFails = 0
 		self._logger.info("Connected to display on port:")
 		self._logger.info(self.nextionSerial.port)
 		self.connectedPort = self.nextionSerial.port
-		# self.nextionDisplay.nxWrite('touch_j')
 		self.populateWifiList()
 		self.ipTimer.start()
 
-
-
-
-
+		
 	def shortenFileName(self, longName):
 		if len(longName) > 48:
 			return (longName[:30]+'...'+longName[-10:])
@@ -1133,53 +1092,37 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 			# self.nextionDisplay.nxWrite('get dp')
 
 
-			#if self.currentPage == 'home' or self.currentPage == 'temperature' or self.currentPage == 'extruder':
 			if self.currentPage == 'home' or self.currentPage == 'extruder':
 				# Extruder 1
 				try:
-					#displayString = self.currentPage + '.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
-
 					t0Temp = self.currentPage + '.t0Temp.txt="{}\xB0C"'.format(str(int(tempData['tool0']['actual'])))
 					t0Target = self.currentPage + '.t0Target.txt="{}\xB0C"'.format(str(int(tempData['tool0']['target'])))
-					#displayGeneralString = 'tool0.tool0Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool0']['actual'])),str(int(tempData['tool0']['target'])))
 					displayWave0 = 'home.temp0.val={}'.format(str(int(tempData['tool0']['actual'])))
 					t0Targetvalue = 'home.target0.val={}'.format(str(int(tempData['tool0']['target'])))
 					self.nextionDisplay.nxWrite(t0Temp)
 					self.nextionDisplay.nxWrite(t0Target)
-					
-					#self.nextionDisplay.nxWrite(displayGeneralString)
 					self.nextionDisplay.nxWrite(displayWave0)
 					self.nextionDisplay.nxWrite(t0Targetvalue)
 				except:
 					self._logger.info('no tool0?')
 					tool0DisplayString = self.currentPage + '.tool0Display.txt="No Data"'
-					#tool0GeneralDisplayString = 'tool0.tool0Display.txt="No Data"'
 					self.nextionDisplay.nxWrite(tool0DisplayString)
-					#self.nextionDisplay.nxWrite(tool0GeneralDisplayString)
 				# Extruder 2
 				try:
-					#tool1DisplayString = self.currentPage + '.tool1Display.txt="{} / {} \xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
-					
 					t1Temp = self.currentPage + '.t1Temp.txt="{}\xB0C"'.format(str(int(tempData['tool1']['actual'])))
 					t1Target = self.currentPage + '.t1Target.txt="{}\xB0C"'.format(str(int(tempData['tool1']['target'])))
-					#tool1DisplayGeneralString = 'tool1.tool1Display.txt="{}/{}\xB0C"'.format(str(int(tempData['tool1']['actual'])),str(int(tempData['tool1']['target'])))
 					displayWave1 = 'home.temp1.val={}'.format(str(int(tempData['tool1']['actual'])))
 					t1Targetvalue = 'home.target1.val={}'.format(str(int(tempData['tool1']['target'])))
 					self.nextionDisplay.nxWrite(t1Temp)
 					self.nextionDisplay.nxWrite(t1Target)
-					
-					#self.nextionDisplay.nxWrite(tool1DisplayGeneralString)
 					self.nextionDisplay.nxWrite(displayWave1)
 					self.nextionDisplay.nxWrite(t1Targetvalue)
 				except:
 					self._logger.info('no tool1?')
 					tool1DisplayString = self.currentPage + '.tool1Display.txt="No Tool1"'
-					#tool1GeneralDisplayString = 'tool1.tool1Display.txt="No Tool1"'
 					self.nextionDisplay.nxWrite(tool1DisplayString)
-					#self.nextionDisplay.nxWrite(tool1GeneralDisplayString)
-
 					
-			if self.currentPage == 'temperature':
+			if self.currentPage == 'temperature' or self.currentPage == 'tool0':
 				# Extruder 1
 				try:
 					tool0Display = self.currentPage + '.tool0Display.txt="{}\xB0C"'.format(str(int(tempData['tool0']['actual'])))
@@ -1187,6 +1130,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				except:
 					tool0Display = self.currentPage + '.tool0Display.txt="---"'
 					self.nextionDisplay.nxWrite(tool0Display)
+					
+			if self.currentPage == 'temperature' or self.currentPage == 'tool1':					
 				# Extruder 2
 				try:
 					tool1Display = self.currentPage + '.tool1Display.txt="{}\xB0C"'.format(str(int(tempData['tool1']['actual'])))
