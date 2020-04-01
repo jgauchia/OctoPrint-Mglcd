@@ -1122,7 +1122,7 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					tool1DisplayString = self.currentPage + '.tool1Display.txt="No Tool1"'
 					self.nextionDisplay.nxWrite(tool1DisplayString)
 					
-			if self.currentPage == 'temperature' or self.currentPage == 'tool0':
+			if self.currentPage == 'temperature':
 				# Extruder 1
 				try:
 					tool0Display = self.currentPage + '.tool0Display.txt="{}\xB0C"'.format(str(int(tempData['tool0']['actual'])))
@@ -1130,8 +1130,6 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				except:
 					tool0Display = self.currentPage + '.tool0Display.txt="---"'
 					self.nextionDisplay.nxWrite(tool0Display)
-					
-			if self.currentPage == 'temperature' or self.currentPage == 'tool1':					
 				# Extruder 2
 				try:
 					tool1Display = self.currentPage + '.tool1Display.txt="{}\xB0C"'.format(str(int(tempData['tool1']['actual'])))
@@ -1140,7 +1138,23 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 					tool1Display = self.currentPage + '.tool1Display.txt="---"'
 					self.nextionDisplay.nxWrite(tool1Display)		
 					
+			if self.currentPage == 'tool0':
+				# Extruder 1
+				try:
+					tool0Display = self.currentPage + '.tool0Display.txt="{}\xB0C"'.format(str(int(tempData['tool0']['actual'])))
+					self.nextionDisplay.nxWrite(tool0Display)
+				except:
+					tool0Display = self.currentPage + '.tool0Display.txt="---"'
+					self.nextionDisplay.nxWrite(tool0Display)
 					
+			if self.currentPage == 'tool1':		
+				# Extruder 2
+				try:
+					tool1Display = self.currentPage + '.tool1Display.txt="{}\xB0C"'.format(str(int(tempData['tool1']['actual'])))
+					self.nextionDisplay.nxWrite(tool1Display)
+				except:
+					tool1Display = self.currentPage + '.tool1Display.txt="---"'
+					self.nextionDisplay.nxWrite(tool1Display)			
 
 			if self.currentPage == 'printcontrols':
 				if (data['job']['file']['name']) == None:
