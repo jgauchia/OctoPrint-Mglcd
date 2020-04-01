@@ -1674,14 +1674,14 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				# select and start printing the selected file
 				# pass
 				self._printer.start_print()
-				self.nextionDisplay.nxWrite('printcontrols.toggle.txt="Pause"')
+				#self.nextionDisplay.nxWrite('printcontrols.toggle.txt="Pause"')
 				self.currentPage = 'home'
 
 			if line == "button print cancel":
 				# select and start printing the selected file
 				# pass
 				self._printer.cancel_print()
-				self.nextionDisplay.nxWrite('printcontrols.toggle.txt="Pause"')
+				#self.nextionDisplay.nxWrite('printcontrols.toggle.txt="Pause"')
 				# self.currentPage = 'home'
 
 
