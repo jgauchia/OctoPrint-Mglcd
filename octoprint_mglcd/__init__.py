@@ -1702,6 +1702,8 @@ class NextionPlugin(octoprint.plugin.StartupPlugin,
 				# select and start printing the selected file
 				# pass
 				#self.nextionDisplay.nxWrite('printcontrols.toggle.txt="Resume"')
+				self.nextionDisplay.nxWrite('printcontrols.toggle.pic="23");
+   				self.nextionDisplay.nxWrite('printcontrols.toggle.pic2="23");	
 				self._printer.pause_print()
 				# self.currentPage = 'home'
 
